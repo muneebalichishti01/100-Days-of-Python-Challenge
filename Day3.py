@@ -32,7 +32,7 @@ def treasure_hunt_story() -> None:
     user_input_1st = input("Choose to move: Type 'left' or 'right'\nChoice: ")
     user_input_1st = user_input_1st.lower()     # Lowercase the output for consistent validation
 
-    if user_input_1st != "left" or "right":     # Error detection if input is not correct for first input
+    if user_input_1st != "left" and user_input_1st != "right":     # Error detection if input is not correct for first input
         print("You chose to die. Type 'left' or 'right' only. Game Over, try again!")
 
     if user_input_1st == "right":
@@ -42,7 +42,7 @@ def treasure_hunt_story() -> None:
         user_input_2nd = input("Choose to move:\n- Type 'wait' to wait for a boat.\n- Type 'swim' to swim across.\nChoice: ")
         user_input_1st = user_input_1st.lower()     # Lowercase the output for consistent validation
 
-        if user_input_2nd != "wait" or "swim":      # Error detection if input is not correct for seconf input
+        if user_input_2nd != "wait" and user_input_2nd != "swim":      # Error detection if input is not correct for seconf input
             print("You chose to die. Type 'wait' or 'swim' only. Game Over, try again!")
 
         if user_input_2nd == "swim":
@@ -52,7 +52,7 @@ def treasure_hunt_story() -> None:
             user_input_3rd = input("Choose to move: Type 'red' or 'yellow' or 'blue'\nChoice: ")
             user_input_3rd = user_input_3rd.lower() # Lowercase the output for consistent validation
 
-            if user_input_3rd != "red" or "yellow" or "blue":     # Error detection if input is not correct for first input
+            if user_input_3rd != "red" and user_input_3rd != "yellow" and user_input_3rd != "blue":     # Error detection if input is not correct for first input
                 print("You chose to die. Type 'red' or 'yellow' or 'blue' only. Game Over, try again!")
 
             if user_input_3rd == "red":
