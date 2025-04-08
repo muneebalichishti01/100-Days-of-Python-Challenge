@@ -16,7 +16,7 @@ def main() -> None:
         band_name = band_name_generator(city_name, pet_name)
         print(f"Your band name could be {band_name}!")
     except (KeyboardInterrupt, EOFError):
-        print("\Program interrupted by user. Goodbye!")
+        print("\nProgram interrupted by user. Goodbye!")
 
 if __name__ == "__main__":
     main()
