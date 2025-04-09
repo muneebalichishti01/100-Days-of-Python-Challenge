@@ -40,7 +40,7 @@ def display_game_over() -> None:
     """
     Function to display the game over text
     """
-    print("Game Over, try again!")
+    print("Game Over!")
 
 def treasure_hunt_story() -> None:
     """
