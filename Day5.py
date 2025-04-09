@@ -14,20 +14,21 @@ def random_list_generator(letter_count: int, symbol_count: int, numbers_count: i
     random_numbers_list = random.sample(NUMBERS, numbers_count)
     return random_letter_list, random_symbol_list, random_numbers_list
 
-def unique_password_generator(letter_count: int, symbol_count: int, numbers_count: int) -> None:
+def unique_password_generator(letter_count: int, symbol_count: int, numbers_count: int, password_count: int) -> None:
     '''
     Function to generate random secured password
     '''
-    if not isinstance(letter_count, int) or not isinstance(symbol_count, int) or not isinstance(numbers_count, int):
+    if not isinstance(letter_count, int) or not isinstance(symbol_count, int) or not isinstance(numbers_count, int) or not isinstance(password_count, int):
         raise Exception("Type in numbers only!")
     
     random_letter_list, random_symbol_list, random_numbers_list = random_list_generator(letter_count, symbol_count, numbers_count)
     
-    password = random_letter_list + random_symbol_list + random_numbers_list
-    random.shuffle(password)
-
-    password_str = ''.join(password)
-    print(f"Generated password: {password_str}")
+    password = ""
+    for _ in range(password_count):
+        password = random_letter_list + random_symbol_list + random_numbers_list
+        random.shuffle(password)
+        password_str = ''.join(password)
+        print(f"Generated password: {password_str}")
 
 def main() -> None:
     '''
@@ -38,8 +39,9 @@ def main() -> None:
         letter_count = int(input("How many letters would you like in your password?\n Choice: "))
         symbol_count = int(input("How many symbols would you like?\n Choice: "))
         numbers_count = int(input("How many numbers would you like?\n Choice: "))
+        password_count = int(input("How many passwords would you like?\n Choice: "))
 
-        unique_password_generator(letter_count, symbol_count, numbers_count)
+        unique_password_generator(letter_count, symbol_count, numbers_count, password_count)
     except (KeyboardInterrupt, EOFError):
         print("\nProgram interrupted by user. Goodbye!")
     except Exception as e:
