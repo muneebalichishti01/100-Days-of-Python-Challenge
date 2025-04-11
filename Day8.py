@@ -25,46 +25,50 @@ def encrypt_or_decrypt(user_text_message: str, user_number_of_shift: int, user_c
     '''
     output_text = ""
     for letter in user_text_message:
-        if user_choice == "encode":
-            shifted_position = ALPHABET.index(letter) + user_number_of_shift
-        elif user_choice == "decode":
-            shifted_position = ALPHABET.index(letter) - user_number_of_shift
-        shifted_position %= len(ALPHABET)
-        output_text += ALPHABET[shifted_position]
-        return output_text
+        if letter in ALPHABET:
+            if user_choice == "encode":
+                shifted_position = ALPHABET.index(letter) + user_number_of_shift
+            elif user_choice == "decode":
+                shifted_position = ALPHABET.index(letter) - user_number_of_shift
+            shifted_position %= len(ALPHABET)
+            output_text += ALPHABET[shifted_position]
+        else:
+            output_text += letter
+    return output_text
 
-def run_encryption_program() -> None:
+def run_caeser_cipher_program() -> None:
     '''
-    Function to run the encryptio/decryption flow
+    Function to run the encryption/decryption program logic flow
     '''
     print(CEASER_CIPHER_ASCII)
 
-    quit_program = False
-    while quit_program == False:
+    continue_program = True
+    while continue_program:
         encrypt_decrypt_choice = input("Type 'encode' to encrypt, type 'decode' to decrypt, type 'quit' to quit.\nChoice: ").lower()
-        user_text_message = input("Type your message.\nMessage: ").lower()
-        user_number_of_shift = int(input("Type the shift number.\nShift: "))
-
         if encrypt_decrypt_choice == 'quit':
-            quit_program = True
             print("You chose to quit the program.")
-        else:
-            output_text = encrypt_or_decrypt(user_text_message, user_number_of_shift, encrypt_decrypt_choice)
-            print(f"Here is the {encrypt_decrypt_choice}d result: {output_text}.")
-        while True:
-            user_confirmation = input("Enter 'yes' to go again, enter 'quit' to quit program.\nChoice: ").lower()
-            if user_confirmation == 'yes':
-                break
-            else:
-                print("Choose a valid option.")
             break
+        elif encrypt_decrypt_choice not in ["encode", "decode"]:
+            print("Error: Please type 'encode', 'decode', or 'quit'.")
+            continue
+        user_text_message = input("Type your message.\nMessage: ").lower()
+        user_number_of_shift = int(input("Type the shift number.\nShift: ").strip())
+        if user_number_of_shift < 0:
+            print("Error: Shift must be a non-negative number.")
+        result_text = encrypt_or_decrypt(user_text_message, user_number_of_shift, encrypt_decrypt_choice)
+        print(f"Here is the {encrypt_decrypt_choice}d result: {result_text}.")
+        
+        replay_confirmation = input("Enter 'yes' to go again, 'no' to quit.\nChoice: ").lower()
+        if replay_confirmation != 'yes':
+            print("You chose to quit the program.")
+            continue_program = False
 
 def main() -> None:
     '''
     Main function to run the program
     '''
     try:
-        run_encryption_program()
+        run_caeser_cipher_program()
     except (KeyboardInterrupt, EOFError):
         print("\nError: Program interrupted by user. Goodbye!")
     except Exception as e:
