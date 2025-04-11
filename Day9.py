@@ -3,6 +3,11 @@ DICTIONARY = {
     "test1" : "this is test 1 value",
     "test2" : "this is test 2 value"
 }
+DICTIONARY2 = {
+    "test1" : ["a", "b", "c"],
+    "test2" : [1, 2, 3],
+    "test3" : ["a", "b", "c", ["A", "B", "C"]]
+}
 
 def view_dictionary(dictionary: dict[str, str]) -> None:
     '''
