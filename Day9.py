@@ -28,7 +28,7 @@ def add_to_dictionary(dictionary: dict[str, str]) -> None:
         if user_key_input in dictionary:
             print(f"For your key '{user_key_input}', there is already an entry in dictionary'.")
             continue
-        user_value_input = input("\nValue: ").strip()
+        user_value_input = input("Value: ").strip()
         dictionary[user_key_input] = user_value_input
         print(f"Added '{user_key_input}': '{user_value_input}'.\nDictionary is now:\n{dictionary}")
 
