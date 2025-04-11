@@ -6,7 +6,11 @@ DICTIONARY = {
 DICTIONARY2 = {
     "test1" : ["a", "b", "c"],
     "test2" : [1, 2, 3],
-    "test3" : ["a", "b", "c", ["A", "B", "C"]]
+    "test3" : ["a", "b", "c", ["A", "B", "C"]],
+    "test4" : {
+        "test5" : ["1", "a", 3],
+        "test6" : 5
+    }
 }
 
 def view_dictionary(dictionary: dict[str, str]) -> None:
