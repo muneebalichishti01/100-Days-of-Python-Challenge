@@ -1,3 +1,5 @@
+import sys
+
 # Define the constants
 CALCULATOR_LOGO = '''
  _____________________
@@ -85,8 +87,11 @@ def continue_calculation(first_number: float, result: float) -> None:
     Function to store final result and continue the calculations
     '''
     while True:
-        confirmation = input(f"Type 'y' to continue calculating with {result}, or type 'n' to start a new calculation: ").lower()
-        if confirmation == 'y':
+        confirmation = input(f"Type 'q' to quit, or 'y' to continue calculating with {result}, or type 'n' to start a new calculation: ").lower()
+        if confirmation == 'q':
+            print("Program exited. Goodbye!")
+            sys.exit()
+        elif confirmation == 'y':
             first_number = result
             operand = get_valid_operand()
             second_number = get_valid_number(POSITION[1])
