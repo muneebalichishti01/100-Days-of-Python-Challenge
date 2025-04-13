@@ -40,21 +40,44 @@ def get_valid_operand() -> None:
         else:
             print("Error: Please choose a valid operand ('+', '-', '*', '/').")
 
+def add(first_number: float, second_number: float) -> float:
+    '''
+    Function to add 2 float numbers
+    '''
+    return first_number + second_number
+
+def subtract(first_number: float, second_number: float) -> float:
+    '''
+    Function to subtract 2 float numbers
+    '''
+    return first_number - second_number
+
+def multiply(first_number: float, second_number: float) -> float:
+    '''
+    Function to multiply 2 float numbers
+    '''
+    return first_number * second_number
+
+def divide(first_number: float, second_number: float) -> float:
+    '''
+    Function to divide 2 float numbers
+    '''
+    while second_number == 0:
+        print("Error: Division by zero is not allowed, try another number.")
+        second_number = get_valid_number(POSITION[1])
+    return first_number / second_number
+
 def calculate_result(first_number: float, second_number: float, operand: str) -> float:
     '''
     Function to calculate the results based on the user's operand and numbers
     '''
-    if operand == "+":
-        result = first_number + second_number
-    elif operand == "-":
-        result = first_number - second_number
-    elif operand == "*":
-        result = first_number * second_number
-    elif operand == "/":
-        while second_number == 0:
-            print("Error: Division by zero is not allowed, try another number.")
-            second_number = get_valid_number(POSITION[1])
-        result = first_number / second_number
+    operations = {
+    "+": add,
+    "-": subtract,
+    "*": multiply,
+    "/": divide
+    }
+    result = operations[operand](first_number, second_number)
     return round(result, 2)
 
 def continue_calculation(first_number: float, result: float) -> None:
@@ -62,7 +85,7 @@ def continue_calculation(first_number: float, result: float) -> None:
     Function to store final result and continue the calculations
     '''
     while True:
-        confirmation = input(f"Type 'y' to continue calculating with {result}, or type 'n' to start a new calculation: ")
+        confirmation = input(f"Type 'y' to continue calculating with {result}, or type 'n' to start a new calculation: ").lower()
         if confirmation == 'y':
             first_number = result
             operand = get_valid_operand()
