@@ -27,9 +27,9 @@ def evaluate_winner(game_cards: dict) -> None:
     computer_score = game_cards["computer"]["total_score"]
 
     if user_score > 21:
-        print("You went over 21. You lose!")
+        print("Bust! You went over 21. You lose!")
     elif computer_score > 21:
-        print("Computer went over 21. You win!")
+        print("Bust! Computer went over 21. You win!")
     elif user_score > computer_score:
         print("You win!")
     elif user_score < computer_score:
@@ -67,11 +67,23 @@ def get_user_next_choice(game_cards: dict) -> None:
         
 def add_cards(card_list: list) -> int:
     '''
-    Function to calculate the final total of all cards in the list without using built-in sum
+    Function to calculate the final total of all cards in the list while handling Aces as 1 or 11
     '''
     card_total = 0
+    aces = 0
+
     for card in card_list:
-        card_total += card
+        if card == 11:
+            aces += 1
+        else:
+            card_total += card
+
+    for _ in range(aces):
+        if card_total + 11 <= 21:
+            card_total += 11
+        else:
+            card_total += 1
+
     return card_total
 
 def play_blackjack() -> None:
