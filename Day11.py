@@ -11,13 +11,17 @@ BLACKJACK_ASCII = '''
       |  \/ K|                            _/ |                
       '------'                           |__/           
 '''
+CARDS = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
 def get_random_cards_list(number: int) -> list:
     '''
-    Function to generate a list of random numbers based on the number parameter from 1 to 11
+    Function to generate a list of random cards from the CARDS list
     '''
-    random_num_list = [random.randint(1, 11) for _ in range(number)]
-    return random_num_list
+    random_cards_list = []
+    for _ in range(number):
+        random_index = int(random.random() * len(CARDS))
+        random_cards_list.append(CARDS[random_index])
+    return random_cards_list
 
 def evaluate_winner(game_cards: dict) -> None:
     '''
@@ -29,7 +33,7 @@ def evaluate_winner(game_cards: dict) -> None:
     if user_score > 21:
         print("Bust! You went over 21. You lose!")
     elif computer_score > 21:
-        print("Bust! Computer went over 21. You win!")
+        print("Computer went over 21. You win!")
     elif user_score > computer_score:
         print("You win!")
     elif user_score < computer_score:
