@@ -7,7 +7,6 @@ ___________.__ __           ___________                     ___________
   |____|   |__|__|_ \         |____|  (____  /\___  >         |____| \____/ \___  >
                    \/                      \/     \/                            \/ 
 '''
-GAME_BOARD_LIST = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 PLAYERS = ["X", "Y"]
 
 def print_game_board(board_list: list) -> None:
@@ -29,43 +28,12 @@ def run_tik_tac_toe_move(player_input: int, board_list: list, user_x_or_y: str) 
     '''
     Function to execute adding the player input on board
     '''
-    if player_input == 1:
-        print(f"Game Board:")
-        board_list[0] = user_x_or_y
+    if str(board_list[player_input - 1]) in PLAYERS:
+        print("That position is already taken. Try again.")
+    else:
+        board_list[player_input - 1] = user_x_or_y
+        print("Game Board:")
         print_game_board(board_list)
-    elif player_input == 2:
-        board_list[1] = user_x_or_y
-        print(f"Game Board:")
-        print_game_board(board_list)
-    elif player_input == 3:
-        board_list[2] = user_x_or_y
-        print(f"Game Board:")
-        print_game_board(board_list)
-    elif player_input == 4:
-        board_list[3] = user_x_or_y
-        print(f"Game Board:")
-        print_game_board(board_list)
-    elif player_input == 5:
-        board_list[4] = user_x_or_y
-        print(f"Game Board:")
-        print_game_board(board_list)
-    elif player_input == 6:
-        board_list[5] = user_x_or_y
-        print(f"Game Board:")
-        print_game_board(board_list)
-    elif player_input == 7:
-        board_list[6] = user_x_or_y
-        print(f"Game Board:")
-        print_game_board(board_list)
-    elif player_input == 8:
-        board_list[7] = user_x_or_y
-        print(f"Game Board:")
-        print_game_board(board_list)
-    elif player_input == 9:
-        board_list[8] = user_x_or_y
-        print(f"Game Board:")
-        print_game_board(board_list)
-
     return board_list
 
 def call_player_turn(player_chosen:str, game_board_list: list) -> list:
@@ -77,7 +45,10 @@ def call_player_turn(player_chosen:str, game_board_list: list) -> list:
         player_input = input("Choice: ").lower().strip()
         if player_input.isdigit():
             player_input = int(player_input)
-            if player_input >= 1 and player_input <=9:
+            if 1 <= player_input <= 9:
+                if str(game_board_list[player_input - 1]) in PLAYERS:
+                    print("Position already taken. Try a different one.")
+                    continue
                 updated_board_list = run_tik_tac_toe_move(player_input, game_board_list, player_chosen)
                 return updated_board_list
             else:
@@ -120,17 +91,22 @@ def play_tik_tac_toe(game_board_list: list) -> None:
     '''
     Function to play the game for 2 users
     '''
-    while True:
-        game_board_list_1 = call_player_turn(PLAYERS[0], GAME_BOARD_LIST)
-        winner = evaluate_winner(PLAYERS[0], game_board_list_1)
-        if winner == True:
-            break
-        game_board_list_2 = call_player_turn(PLAYERS[1], GAME_BOARD_LIST)
-        winner = evaluate_winner(PLAYERS[1], game_board_list_2)
-        if winner == True:
-            break
-    print("Final Game Board:")
+    game_board_list[:] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    print("Game Board:")
     print_game_board(game_board_list)
+
+    while True:
+        for player in PLAYERS:
+            updated_board = call_player_turn(player, game_board_list)
+            if evaluate_winner(player, updated_board):
+                print("Final Game Board:")
+                print_game_board(game_board_list)
+                return
+            if all(str(position) in PLAYERS for position in game_board_list):
+                print("It's a draw!")
+                print("Final Game Board:")
+                print_game_board(game_board_list)
+                return
     
 def run_tik_tac_toe() -> None:
     '''
@@ -138,8 +114,6 @@ def run_tik_tac_toe() -> None:
     '''
     print("\n"*100)
     print(GAME_LOGO)
-    print(f"Game Board:")
-    print_game_board(GAME_BOARD_LIST)
 
     while True:
         try:
@@ -148,7 +122,8 @@ def run_tik_tac_toe() -> None:
                 print("You chose to quit the game, Goodbye!")
                 break
             elif user_option == 'y':
-                play_tik_tac_toe(GAME_BOARD_LIST)
+                game_board_list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+                play_tik_tac_toe(game_board_list)
             else:
                 print("Choose the correct option: 'y' or 'n'.")
         except ValueError:
@@ -161,7 +136,7 @@ def main() -> None:
     try:
         run_tik_tac_toe()
     except (KeyboardInterrupt, EOFError):
-        print("\nPorgram interrupted by the user. Goodbye!")
+        print("\nProgram interrupted by the user. Goodbye!")
     except Exception as e:
         print(f"Error: {e}")
 
