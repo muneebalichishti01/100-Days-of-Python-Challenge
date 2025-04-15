@@ -166,7 +166,7 @@ DATA = [
     }
 ]
 
-def get_random_data_indexes() -> tuple:
+def get_random_indexes() -> tuple:
     '''
     Returns 2 random unique indexes from the DATA list
     '''
@@ -177,7 +177,7 @@ def get_random_data_indexes() -> tuple:
         index_2 = random.randint(0, len(DATA) - 1)
     return index_1, index_2
 
-def print_comparison_data(index_1: int, index_2: int) -> None:
+def print_comparison(index_1: int, index_2: int) -> None:
     '''
     Function to print the 2 comparisons
     '''
@@ -185,7 +185,7 @@ def print_comparison_data(index_1: int, index_2: int) -> None:
     print(COMPARISON_LOGO)
     print(f'Against B: {DATA[index_2]["name"]}, a {DATA[index_2]["description"]}, from {DATA[index_2]["country"]}.')
 
-def get_higher_follower_count_data(index_1: int, index_2: int, user_guess: str, score:int) -> int:
+def determine_winner_with_score(index_1: int, index_2: int, user_guess: str, score:int) -> int:
     '''
     Function to calculate the higher lower difference using indexes
     '''
@@ -193,21 +193,19 @@ def get_higher_follower_count_data(index_1: int, index_2: int, user_guess: str, 
         if DATA[index_1]["follower_count"] > DATA[index_2]["follower_count"]:
             print("You got it right!")
             score += 1
-            user_tries -= 1
             return score
         else:
             print(f"You got it wrong. The correct answer was B: {DATA[index_2]['name']} with {DATA[index_2]['follower_count']} million followers.")
-            print(f"You got it wrong. You loose!\nYour final score: {score}")
+            print(f"Your final score: {score}")
             raise SystemExit
     elif user_guess == "b":
         if DATA[index_2]["follower_count"] > DATA[index_1]["follower_count"]:
             print("You got it right!")
             score += 1
-            user_tries -= 1
             return score
         else:
             print(f"You got it wrong. The correct answer was A: {DATA[index_1]['name']} with {DATA[index_1]['follower_count']} million followers.")
-            print(f"You got it wrong. You loose!\nYour final score: {score}")
+            print(f"Your final score: {score}")
             raise SystemExit
 
 def run_higher_lower_game() -> None:
@@ -222,13 +220,13 @@ def run_higher_lower_game() -> None:
         return
     
     while True:
-        index_1, index_2 = get_random_data_indexes()
-        print_comparison_data(index_1, index_2)
+        index_1, index_2 = get_random_indexes()
+        print_comparison(index_1, index_2)
         user_guess = input("Who has more followers? Type 'A' or 'B': ").lower().strip()
         if user_guess not in ["a", "b"]:
             print("Error: Please input only 'A' or 'B'.")
         else:
-            score = get_higher_follower_count_data(index_1, index_2, user_guess, score)
+            score = determine_winner_with_score(index_1, index_2, user_guess, score)
             print(f"Current score: {score}")
 
 def main() -> None:
