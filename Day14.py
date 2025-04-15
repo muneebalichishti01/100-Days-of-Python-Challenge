@@ -168,11 +168,13 @@ DATA = [
 
 def get_random_data_indexes() -> tuple:
     '''
-    Returns 2 random indexes from the DATA list
+    Returns 2 random unique indexes from the DATA list
     '''
     indices = list(range(len(DATA)))
     index_1 = random.choice(indices)
     index_2 = random.choice(indices)
+    while index_1 == index_2:
+        index_2 = random.randint(0, len(DATA) - 1)
     return index_1, index_2
 
 def print_comparison_data(index_1: int, index_2: int) -> None:
