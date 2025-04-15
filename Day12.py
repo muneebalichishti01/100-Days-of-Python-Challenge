@@ -81,7 +81,7 @@ def play_tic_tac_toe(game_board_list: list[int]) -> None:
     '''
     Function to play the game for 2 users
     '''
-    game_board_list[:] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    game_board_list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     print("Game Board:")
     print_game_board(game_board_list)
 
@@ -112,8 +112,7 @@ def run_tic_tac_toe() -> None:
                 print("You chose to quit the game, Goodbye!")
                 break
             elif user_option == 'y':
-                game_board_list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-                play_tic_tac_toe(game_board_list)
+                play_tic_tac_toe()
             else:
                 print("Choose the correct option: 'y' or 'n'.")
         except ValueError:
