@@ -77,7 +77,7 @@ def check_winner(player_chosen: str, game_board_list: list[int]) -> bool:
             return True
     return False
 
-def play_tic_tac_toe(game_board_list: list[int]) -> None:
+def play_tic_tac_toe() -> None:
     '''
     Function to play the game for 2 users
     '''
