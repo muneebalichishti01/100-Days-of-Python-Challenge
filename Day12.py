@@ -8,6 +8,7 @@ ___________.__ __           ___________                     ___________
                    \/                      \/     \/                            \/ 
 '''
 GAME_BOARD_LIST = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+PLAYERS = ["X", "Y"]
 
 def print_game_board(board_list: list) -> None:
     '''
@@ -24,38 +25,113 @@ def print_game_board(board_list: list) -> None:
 '''
     print(game_board)
 
-def display_tik_tac_toe_move(player_input: int, board_list: list) -> None:
+def run_tik_tac_toe_move(player_input: int, board_list: list, user_x_or_y: str) -> list:
     '''
     Function to execute adding the player input on board
     '''
     if player_input == 1:
         print(f"Game Board:")
+        board_list[0] = user_x_or_y
         print_game_board(board_list)
     elif player_input == 2:
+        board_list[1] = user_x_or_y
         print(f"Game Board:")
         print_game_board(board_list)
     elif player_input == 3:
+        board_list[2] = user_x_or_y
         print(f"Game Board:")
         print_game_board(board_list)
     elif player_input == 4:
+        board_list[3] = user_x_or_y
         print(f"Game Board:")
         print_game_board(board_list)
     elif player_input == 5:
+        board_list[4] = user_x_or_y
         print(f"Game Board:")
         print_game_board(board_list)
     elif player_input == 6:
+        board_list[5] = user_x_or_y
         print(f"Game Board:")
         print_game_board(board_list)
     elif player_input == 7:
+        board_list[6] = user_x_or_y
         print(f"Game Board:")
         print_game_board(board_list)
     elif player_input == 8:
+        board_list[7] = user_x_or_y
         print(f"Game Board:")
         print_game_board(board_list)
     elif player_input == 9:
+        board_list[8] = user_x_or_y
         print(f"Game Board:")
         print_game_board(board_list)
 
+    return board_list
+
+def call_player_turn(player_chosen:str, game_board_list: list) -> list:
+    '''
+    Function to run the player's turn
+    '''
+    while True:
+        print(f"Player {player_chosen}, enter position 1 to 9.\n")
+        player_input = input("Choice: ").lower().strip()
+        if player_input.isdigit():
+            player_input = int(player_input)
+            if player_input >= 1 and player_input <=9:
+                updated_board_list = run_tik_tac_toe_move(player_input, game_board_list, player_chosen)
+                return updated_board_list
+            else:
+                print("Please use numerical position number 1 to 9 only.")
+        else:
+            print("Please use numerical position number 1 to 9 only.")
+
+def evaluate_winner(player_chosen: str, game_board_list: list) -> bool:
+    '''
+    Function to evaludate the winner after every step
+    '''
+    winner = False
+    if game_board_list[0] == player_chosen and game_board_list[1] == player_chosen and game_board_list[2] == player_chosen:
+        print(f"Player {player_chosen} wins!")
+        winner = True
+    elif game_board_list[3] == player_chosen and game_board_list[4] == player_chosen and game_board_list[5] == player_chosen:
+        print(f"Player {player_chosen} wins!")
+        winner = True
+    elif game_board_list[6] == player_chosen and game_board_list[7] == player_chosen and game_board_list[8] == player_chosen:
+        print(f"Player {player_chosen} wins!")
+        winner = True
+    elif game_board_list[0] == player_chosen and game_board_list[3] == player_chosen and game_board_list[6] == player_chosen:
+        print(f"Player {player_chosen} wins!")
+        winner = True
+    elif game_board_list[1] == player_chosen and game_board_list[4] == player_chosen and game_board_list[7] == player_chosen:
+        print(f"Player {player_chosen} wins!")
+        winner = True
+    elif game_board_list[2] == player_chosen and game_board_list[5] == player_chosen and game_board_list[8] == player_chosen:
+        print(f"Player {player_chosen} wins!")
+        winner = True
+    elif game_board_list[0] == player_chosen and game_board_list[4] == player_chosen and game_board_list[8] == player_chosen:
+        print(f"Player {player_chosen} wins!")
+        winner = True
+    elif game_board_list[2] == player_chosen and game_board_list[4] == player_chosen and game_board_list[6] == player_chosen:
+        print(f"Player {player_chosen} wins!")
+        winner = True
+    return winner
+
+def play_tik_tac_toe(game_board_list: list) -> None:
+    '''
+    Function to play the game for 2 users
+    '''
+    while True:
+        game_board_list_1 = call_player_turn(PLAYERS[0], GAME_BOARD_LIST)
+        winner = evaluate_winner(PLAYERS[0], game_board_list_1)
+        if winner == True:
+            break
+        game_board_list_2 = call_player_turn(PLAYERS[1], GAME_BOARD_LIST)
+        winner = evaluate_winner(PLAYERS[1], game_board_list_2)
+        if winner == True:
+            break
+    print("Final Game Board:")
+    print_game_board(game_board_list)
+    
 def run_tik_tac_toe() -> None:
     '''
     Function to implement main logic for the fucntionality
@@ -66,18 +142,17 @@ def run_tik_tac_toe() -> None:
     print_game_board(GAME_BOARD_LIST)
 
     while True:
-        player_x_input = input("Player X, enter position (1-9 or 'q' to quit).\nChoice: ").lower().strip()
-        if player_x_input.isdigit():
-            player_x_input = int(player_x_input)
-            if player_x_input >= 1 and player_x_input <=9:
-                display_tik_tac_toe_move(player_x_input)
+        try:
+            user_option = input("Do you want to play the game? Type 'y' or 'n'.\nChoice: ").lower().strip()
+            if user_option == 'n':
+                print("You chose to quit the game, Goodbye!")
+                break
+            elif user_option == 'y':
+                play_tik_tac_toe(GAME_BOARD_LIST)
             else:
-                print("Please use numerical position number 1 to 9 only.")
-        elif player_x_input == 'q':
-            print("You chose to quit the game. Goodbye!")
-            break
-        else:
-            print("Please use numerical position number 1 to 9 only.")
+                print("Choose the correct option: 'y' or 'n'.")
+        except ValueError:
+            print("Error: Please use numerical position number 1 to 9 only.")
 
 def main() -> None:
     '''
