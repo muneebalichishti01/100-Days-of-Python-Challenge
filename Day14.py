@@ -218,15 +218,12 @@ def run_higher_lower_game() -> None:
     while True:
         index_1, index_2 = get_random_data_indexes()
         print_comparison_data(index_1, index_2)
-        try:
-            user_guess = input("Who has more followers? Type 'A' or 'B': ").lower().strip()
-            if user_guess not in ["a", "b"]:
-                print("Error: Please input only 'A' or 'B'.")
-            else:
-                score = get_higher_follower_count_data(index_1, index_2, user_guess, score)
-                print(f"Current score: {score}")
-        except ValueError:
-            print("Error: Use letters 'A' or 'B' only!")
+        user_guess = input("Who has more followers? Type 'A' or 'B': ").lower().strip()
+        if user_guess not in ["a", "b"]:
+            print("Error: Please input only 'A' or 'B'.")
+        else:
+            score = get_higher_follower_count_data(index_1, index_2, user_guess, score)
+            print(f"Current score: {score}")
 
 def main() -> None:
     '''
