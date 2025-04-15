@@ -60,30 +60,21 @@ def evaluate_winner(player_chosen: str, game_board_list: list) -> bool:
     '''
     Function to check if the chosen player has won
     '''
-    if game_board_list[0] == game_board_list[1] == game_board_list[2] == player_chosen:
-        print(f"Player {player_chosen} wins!")
-        return True
-    elif game_board_list[3] == game_board_list[4] == game_board_list[5] == player_chosen:
-        print(f"Player {player_chosen} wins!")
-        return True
-    elif game_board_list[6] == game_board_list[7] == game_board_list[8] == player_chosen:
-        print(f"Player {player_chosen} wins!")
-        return True
-    elif game_board_list[0] == game_board_list[3] == game_board_list[6] == player_chosen:
-        print(f"Player {player_chosen} wins!")
-        return True
-    elif game_board_list[1] == game_board_list[4] == game_board_list[7] == player_chosen:
-        print(f"Player {player_chosen} wins!")
-        return True
-    elif game_board_list[2] == game_board_list[5] == game_board_list[8] == player_chosen:
-        print(f"Player {player_chosen} wins!")
-        return True
-    elif game_board_list[0] == game_board_list[4] == game_board_list[8] == player_chosen:
-        print(f"Player {player_chosen} wins!")
-        return True
-    elif game_board_list[2] == game_board_list[4] == game_board_list[6] == player_chosen:
-        print(f"Player {player_chosen} wins!")
-        return True
+    win_conditions_list = [
+        (0, 1, 2),  # top row
+        (3, 4, 5),  # middle row
+        (6, 7, 8),  # bottom row
+        (0, 3, 6),  # left column
+        (1, 4, 7),  # middle column
+        (2, 5, 8),  # right column
+        (0, 4, 8),  # main diagonal
+        (2, 4, 6)   # anti-diagonal
+    ]
+
+    for position_1, position_2, position_3 in win_conditions_list:
+        if game_board_list[position_1] == game_board_list[position_2] == game_board_list[position_3] == player_chosen:
+            print(f"Player {player_chosen} wins!")
+            return True
     return False
 
 def play_tik_tac_toe(game_board_list: list) -> None:
