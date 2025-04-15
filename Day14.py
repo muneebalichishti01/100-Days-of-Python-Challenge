@@ -187,28 +187,24 @@ def get_higher_follower_count_data(index_1: int, index_2: int, user_guess: str, 
     '''
     Function to calculate the higher lower difference using indexes
     '''
-    user_tries = 10
-    while user_tries > 0:
-        if user_guess == "a":
-            if DATA[index_1]["follower_count"] > DATA[index_2]["follower_count"]:
-                winner_dict = DATA[index_1]
-                print("You got it right!")
-                score += 1
-                user_tries -= 1
-                return score
-            else:
-                print(f"You got it wrong. You loose!\nYour final score: {score}")
-                raise SystemExit
-        elif user_guess == "b":
-            if DATA[index_2]["follower_count"] > DATA[index_1]["follower_count"]:
-                winner_dict = DATA[index_2]
-                print("You got it right!")
-                score += 1
-                user_tries -= 1
-                return score
-            else:
-                print(f"You got it wrong. You loose!\nYour final score: {score}")
-                raise SystemExit
+    if user_guess == "a":
+        if DATA[index_1]["follower_count"] > DATA[index_2]["follower_count"]:
+            print("You got it right!")
+            score += 1
+            user_tries -= 1
+            return score
+        else:
+            print(f"You got it wrong. You loose!\nYour final score: {score}")
+            raise SystemExit
+    elif user_guess == "b":
+        if DATA[index_2]["follower_count"] > DATA[index_1]["follower_count"]:
+            print("You got it right!")
+            score += 1
+            user_tries -= 1
+            return score
+        else:
+            print(f"You got it wrong. You loose!\nYour final score: {score}")
+            raise SystemExit
 
 def run_higher_lower_game() -> None:
     '''
