@@ -58,34 +58,33 @@ def call_player_turn(player_chosen:str, game_board_list: list) -> list:
 
 def evaluate_winner(player_chosen: str, game_board_list: list) -> bool:
     '''
-    Function to evaludate the winner after every step
+    Function to check if the chosen player has won
     '''
-    winner = False
-    if game_board_list[0] == player_chosen and game_board_list[1] == player_chosen and game_board_list[2] == player_chosen:
+    if game_board_list[0] == game_board_list[1] == game_board_list[2] == player_chosen:
         print(f"Player {player_chosen} wins!")
-        winner = True
-    elif game_board_list[3] == player_chosen and game_board_list[4] == player_chosen and game_board_list[5] == player_chosen:
+        return True
+    elif game_board_list[3] == game_board_list[4] == game_board_list[5] == player_chosen:
         print(f"Player {player_chosen} wins!")
-        winner = True
-    elif game_board_list[6] == player_chosen and game_board_list[7] == player_chosen and game_board_list[8] == player_chosen:
+        return True
+    elif game_board_list[6] == game_board_list[7] == game_board_list[8] == player_chosen:
         print(f"Player {player_chosen} wins!")
-        winner = True
-    elif game_board_list[0] == player_chosen and game_board_list[3] == player_chosen and game_board_list[6] == player_chosen:
+        return True
+    elif game_board_list[0] == game_board_list[3] == game_board_list[6] == player_chosen:
         print(f"Player {player_chosen} wins!")
-        winner = True
-    elif game_board_list[1] == player_chosen and game_board_list[4] == player_chosen and game_board_list[7] == player_chosen:
+        return True
+    elif game_board_list[1] == game_board_list[4] == game_board_list[7] == player_chosen:
         print(f"Player {player_chosen} wins!")
-        winner = True
-    elif game_board_list[2] == player_chosen and game_board_list[5] == player_chosen and game_board_list[8] == player_chosen:
+        return True
+    elif game_board_list[2] == game_board_list[5] == game_board_list[8] == player_chosen:
         print(f"Player {player_chosen} wins!")
-        winner = True
-    elif game_board_list[0] == player_chosen and game_board_list[4] == player_chosen and game_board_list[8] == player_chosen:
+        return True
+    elif game_board_list[0] == game_board_list[4] == game_board_list[8] == player_chosen:
         print(f"Player {player_chosen} wins!")
-        winner = True
-    elif game_board_list[2] == player_chosen and game_board_list[4] == player_chosen and game_board_list[6] == player_chosen:
+        return True
+    elif game_board_list[2] == game_board_list[4] == game_board_list[6] == player_chosen:
         print(f"Player {player_chosen} wins!")
-        winner = True
-    return winner
+        return True
+    return False
 
 def play_tik_tac_toe(game_board_list: list) -> None:
     '''
