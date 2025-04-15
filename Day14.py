@@ -179,25 +179,56 @@ def print_comparison_data(index_1: int, index_2: int) -> None:
     '''
     Function to print the 2 comparisons
     '''
-    print(f"Compare A: {DATA[index_1]["name"]}, a {DATA[index_1]["description"]}, from {DATA[index_1]["country"]}.")
+    print(f'Compare A: {DATA[index_1]["name"]}, a {DATA[index_1]["description"]}, from {DATA[index_1]["country"]}.')
     print(COMPARISON_LOGO)
-    print(f"Against B: {DATA[index_2]["name"]}, a {DATA[index_2]["description"]}, from {DATA[index_2]["country"]}.")
+    print(f'Against B: {DATA[index_2]["name"]}, a {DATA[index_2]["description"]}, from {DATA[index_2]["country"]}.')
 
-def calculate_higher_lower(user_input: str, index_1: int, index_2: int) -> None:
+def get_higher_follower_count_data(index_1: int, index_2: int, user_guess: str, score:int) -> int:
     '''
-    Function to calculate the higher lower difference
+    Function to calculate the higher lower difference using indexes
     '''
-    pass
+    user_tries = 10
+    while user_tries > 0:
+        if user_guess == "a":
+            if DATA[index_1]["follower_count"] > DATA[index_2]["follower_count"]:
+                winner_dict = DATA[index_1]
+                print("You got it right!")
+                score += 1
+                user_tries -= 1
+                return score
+            else:
+                print(f"You got it wrong. You loose!\nYour final score: {score}")
+                raise SystemExit
+        elif user_guess == "b":
+            if DATA[index_2]["follower_count"] > DATA[index_1]["follower_count"]:
+                winner_dict = DATA[index_2]
+                print("You got it right!")
+                score += 1
+                user_tries -= 1
+                return score
+            else:
+                print(f"You got it wrong. You loose!\nYour final score: {score}")
+                raise SystemExit
 
 def run_higher_lower_game() -> None:
     '''
     Function to state/implement main functionality
     '''
     print(GAME_LOGO)
-    index_1, index_2 = get_random_data_indexes()
-    print_comparison_data(index_1, index_2)
-    user_input = input("Who has more followers? Type 'A' or 'B': ").lower().strip()
-    calculate_higher_lower(user_input, index_1, index_2)
+    score = 0
+
+    while True:
+        index_1, index_2 = get_random_data_indexes()
+        print_comparison_data(index_1, index_2)
+        try:
+            user_guess = input("Who has more followers? Type 'A' or 'B': ").lower().strip()
+            if user_guess not in ["a", "b"]:
+                print("Error: Please input only 'A' or 'B'.")
+            else:
+                score = get_higher_follower_count_data(index_1, index_2, user_guess, score)
+                print(f"Current score: {score}")
+        except ValueError:
+            print("Error: Use letters 'A' or 'B' only!")
 
 def main() -> None:
     '''
@@ -206,7 +237,7 @@ def main() -> None:
     try:
         run_higher_lower_game()
     except (KeyboardInterrupt, EOFError):
-        print("\nProgram inyerrupted by the user. Goodbye!")
+        print("\nProgram interrupted by the user. Goodbye!")
     except Exception as e:
         print(f"Error: {e}")
 
