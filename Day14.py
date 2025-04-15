@@ -196,6 +196,7 @@ def get_higher_follower_count_data(index_1: int, index_2: int, user_guess: str, 
             user_tries -= 1
             return score
         else:
+            print(f"You got it wrong. The correct answer was B: {DATA[index_2]['name']} with {DATA[index_2]['follower_count']} million followers.")
             print(f"You got it wrong. You loose!\nYour final score: {score}")
             raise SystemExit
     elif user_guess == "b":
@@ -205,6 +206,7 @@ def get_higher_follower_count_data(index_1: int, index_2: int, user_guess: str, 
             user_tries -= 1
             return score
         else:
+            print(f"You got it wrong. The correct answer was A: {DATA[index_1]['name']} with {DATA[index_1]['follower_count']} million followers.")
             print(f"You got it wrong. You loose!\nYour final score: {score}")
             raise SystemExit
 
@@ -215,6 +217,10 @@ def run_higher_lower_game() -> None:
     print(GAME_LOGO)
     score = 0
 
+    if len(DATA) < 2:
+        print("Error: Not enough data to play the game.")
+        return
+    
     while True:
         index_1, index_2 = get_random_data_indexes()
         print_comparison_data(index_1, index_2)
